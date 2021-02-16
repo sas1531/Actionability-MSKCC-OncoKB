@@ -76,7 +76,7 @@ action_main_fun(cna_df, mut_df, fus_df, clin_df, data_freeze,
 cBioPortal Study: [MSK-IMPACT Clinical Sequencing Cohort (MSKCC, Nat Med 2017)](https://www.cbioportal.org/study/summary?id=msk_impact_2017)  
 > Zehir A, Benayed R, Shah RH, et al. Mutational landscape of metastatic cancer revealed from prospective clinical sequencing of 10,000 patients [published correction appears in Nat Med. 2017 Aug 4;23 (8):1004]. Nat Med. 2017;23(6):703-713. doi:10.1038/nm.4333
 
-![Actionability Figure](https://github.mskcc.org/SmithS5/Actionability/blob/master/example_data/example_output/actionability_figure.png)  
+![Actionability Figure](https://github.com/sas1531/Actionability_MSKCC/blob/master/example_data/example_output/actionability_figure.png)  
   
   
 ## Inspired by Figure 7 in [Sanchez-Vega et al. Cell 2018](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6070353/): 

@@ -258,11 +258,12 @@ action_levels_barplot_tx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_f
     theme(axis.text.x = element_text(angle = 45, hjust = 0, size = 6),
           axis.text.y = element_text(size = 6),
           axis.ticks.x = element_blank(),
+          axis.title.y = element_text(size = 8),
           panel.border = element_rect(colour = "black", fill=NA, size=0.5),
           panel.background = element_blank(),
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
-          axis.line = element_line(colour = "black"),
+          axis.line = element_line(colour = "black", size=0),
           legend.title = element_text(size = 7),
           legend.text = element_text(size = 6),
           legend.key.size = unit(0.4, "cm"),
@@ -480,11 +481,12 @@ action_levels_barplot_dx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_f
     theme(axis.text.x = element_text(angle = 45, hjust = 0, size = 6),
           axis.text.y = element_text(size = 6),
           axis.ticks.x = element_blank(),
+          axis.title.y = element_text(size = 8),
           panel.border = element_rect(colour = "black", fill=NA, size=0.5),
           panel.background = element_blank(),
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
-          axis.line = element_line(colour = "black"),
+          axis.line = element_line(colour = "black", size=0),
           legend.title = element_text(size = 7),
           legend.text = element_text(size = 6),
           legend.key.size = unit(0.4, "cm"),
@@ -702,11 +704,12 @@ action_levels_barplot_px_fun <- function(cna_df, mut_df, fus_df, clin_df, data_f
     theme(axis.text.x = element_text(angle = 45, hjust = 0, size = 6),
           axis.text.y = element_text(size = 6),
           axis.ticks.x = element_blank(),
+          axis.title.y = element_text(size = 8),
           panel.border = element_rect(colour = "black", fill=NA, size=0.5),
           panel.background = element_blank(),
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
-          axis.line = element_line(colour = "black"),
+          axis.line = element_line(colour = "black", size=0),
           legend.title = element_text(size = 7),
           legend.text = element_text(size = 6),
           legend.key.size = unit(0.4, "cm"),
@@ -875,12 +878,13 @@ action_alterations_barplot_tx_fun <- function(cna_df, mut_df, fus_df, clin_df, d
     labs(fill = "Actionable Alteration") +
     theme(axis.text.x = element_blank(),
           axis.ticks.x = element_blank(),
+          axis.title.y = element_text(size = 8),
           axis.text.y = element_text(size = 6),
           panel.border = element_rect(colour = "black", fill=NA, size=0.5),
           panel.background = element_blank(),
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
-          axis.line = element_line(colour = "black"),
+          axis.line = element_line(colour = "black", size=0),
           legend.title = element_text(size = 8),
           legend.text = element_text(size = 6),
           legend.key.size = unit(0.4, "cm"),
@@ -1049,12 +1053,13 @@ action_alterations_barplot_dx_fun <- function(cna_df, mut_df, fus_df, clin_df, d
     labs(fill = "Actionable Alteration") +
     theme(axis.text.x = element_blank(),
           axis.ticks.x = element_blank(),
+          axis.title.y = element_text(size = 8),
           axis.text.y = element_text(size = 6),
           panel.border = element_rect(colour = "black", fill=NA, size=0.5),
           panel.background = element_blank(),
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
-          axis.line = element_line(colour = "black"),
+          axis.line = element_line(colour = "black", size=0),
           legend.title = element_text(size = 8),
           legend.text = element_text(size = 6),
           legend.key.size = unit(0.4, "cm"),
@@ -1223,12 +1228,13 @@ action_alterations_barplot_px_fun <- function(cna_df, mut_df, fus_df, clin_df, d
     labs(fill = "Actionable Alteration") +
     theme(axis.text.x = element_blank(),
           axis.ticks.x = element_blank(),
+          axis.title.y = element_text(size = 8),
           axis.text.y = element_text(size = 6),
           panel.border = element_rect(colour = "black", fill=NA, size=0.5),
           panel.background = element_blank(),
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
-          axis.line = element_line(colour = "black"),
+          axis.line = element_line(colour = "black", size=0),
           legend.title = element_text(size = 8),
           legend.text = element_text(size = 6),
           legend.key.size = unit(0.4, "cm"),
@@ -1252,16 +1258,18 @@ action_alterations_barplot_px_fun <- function(cna_df, mut_df, fus_df, clin_df, d
 
 # Create actionability alterations main plot
 action_main_tx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
-                            path_df, tsg_list, fusion_list,
-                            prop_level_df = "./actionability_levels_barplot_table_tx.txt",
-                            group_col,
-                            consent_col,
-                            alt_min = 1,
-                            status = c("somatic", "germline", "both"),
-                            gene_order,
-                            only_highest_level = F,
-                            msi_tmb_status,
-                            msi_tmb_df){
+                               path_df,
+                               tsg_list, fusion_list,
+                               prop_level_df = "./actionability_levels_barplot_table_tx.txt",
+                               group_col,
+                               consent_col,
+                               alt_min = 1,
+                               status = c("somatic", "germline", "both"),
+                               gene_order,
+                               only_highest_level = F,
+                               msi_tmb_status,
+                               msi_tmb_df,
+                               include_oncogenic = F){
   
   # Read in data
   cna_df <- read.delim(cna_df)
@@ -1269,7 +1277,6 @@ action_main_tx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
   mut_df <- read.delim(mut_df)
   clin_df <- read.delim(clin_df)
   data_freeze <- read.delim(data_freeze)
-  path_df <- read.delim(path_df)
   tsg_df <- read.delim(tsg_list, header = F)
   prop_level_df <- read.delim(prop_level_df)
   
@@ -1331,9 +1338,6 @@ action_main_tx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     filter(SAMPLE_ID %in% data_freeze$SAMPLE_ID,
            grepl("Oncogenic", oncogenic))
   
-  # Pathways
-  colnames(path_df)[] <- c("HUGO_SYMBOL", "pathway")
-  
   # Set tumor suppresor list
   tumor_suppressor_list <- as.character(tsg_df$V1)
   
@@ -1364,27 +1368,23 @@ action_main_tx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
   cna_df <- cna_df %>%
     inner_join(dplyr::select(data_freeze, SAMPLE_ID, cancer_type), by = "SAMPLE_ID") %>%
     dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, LEVEL_1, LEVEL_2, LEVEL_3A,
-                  LEVEL_3B, LEVEL_4, Highest_level, cancer_type) %>%
-    left_join(path_df, by = "HUGO_SYMBOL") %>%
+                  LEVEL_3B, LEVEL_4, Highest_level, oncogenic, cancer_type) %>%
     distinct() %>%
     filter(is.na(Highest_level) == F) %>%
     mutate(ALTERATION = substring(ALTERATION, 1, 3)) %>%
-    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, Highest_level, cancer_type, pathway) %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, Highest_level, oncogenic, cancer_type) %>%
     dplyr::rename(sample_id = SAMPLE_ID, 
                   gene_symbol = HUGO_SYMBOL, 
                   alteration = ALTERATION, 
                   highest_level = Highest_level) %>%
     mutate(onco_type = ifelse(gene_symbol %in% tumor_suppressor_list, "tumor_suppresor", NA))
   
-  # Change pathway names for fusion and mutation data frames
-  colnames(path_df)[] <- c("Hugo_Symbol", "pathway")
-  
   # Create fusion data frame
   # Combine fusions where the hugo gene symbol is counted twice (impact and archer)
   fus_df <- fus_df %>%
     inner_join(dplyr::select(data_freeze, SAMPLE_ID, cancer_type), by = "SAMPLE_ID") %>%
     dplyr::select(SAMPLE_ID, Hugo_Symbol, Fusion, LEVEL_1, LEVEL_2, LEVEL_3A,
-                  LEVEL_3B, LEVEL_4, Highest_level, cancer_type) %>%
+                  LEVEL_3B, LEVEL_4, Highest_level, oncogenic, cancer_type) %>%
     mutate_if(is.factor, as.character) %>%
     mutate(Fusion = gsub(" fusion", "", Fusion)) %>%
     mutate(Fusion = gsub(" - Archer", "", Fusion)) %>%
@@ -1409,12 +1409,11 @@ action_main_tx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
       mutate(Fusion = gsub("-intragenic", "", Fusion))
   }
   
-  # Add pathway, clean, add tumor suppresor columns
+  # Clean, add tumor suppresor columns
   fus_df <- fus_df %>%
     filter(Highest_level != "") %>%
-    left_join(path_df, by = "Hugo_Symbol") %>%
     mutate(Alteration = "Fus") %>%
-    dplyr::select(SAMPLE_ID, Fusion, Alteration, Highest_level, cancer_type, pathway) %>%
+    dplyr::select(SAMPLE_ID, Fusion, Alteration, Highest_level, oncogenic, cancer_type) %>%
     dplyr::rename(sample_id = SAMPLE_ID,
                   gene_symbol = Fusion,
                   alteration = Alteration,
@@ -1440,9 +1439,9 @@ action_main_tx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
   mut_df <- mut_df %>%
     inner_join(dplyr::select(data_freeze, SAMPLE_ID, cancer_type), by = "SAMPLE_ID") %>%
     dplyr::select(SAMPLE_ID, Hugo_Symbol, Variant_Type, LEVEL_1, LEVEL_2, LEVEL_3A,
-                  LEVEL_3B, LEVEL_4, Highest_level, cancer_type, HGVSp_Short, Mutation_Status)
+                  LEVEL_3B, LEVEL_4, Highest_level, oncogenic, cancer_type, HGVSp_Short, Mutation_Status)
   mut_df <- melt(mut_df, id.vars = c("SAMPLE_ID", "Hugo_Symbol", "Variant_Type", "Highest_level",
-                                     "cancer_type", "HGVSp_Short", "Mutation_Status"))
+                                     "oncogenic", "cancer_type", "HGVSp_Short", "Mutation_Status"))
   
   # Aggregate by everything but strip for the highest level
   # This is just in case there is a gene alteration that has more than one level
@@ -1456,12 +1455,11 @@ action_main_tx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     filter(is.na(highest_level) == F) %>%
     mutate(highest_level == as.character(highest_level),
            Mutation_Status = ifelse(is.na(Mutation_Status) == T, "", Mutation_Status)) %>%
-    group_by(SAMPLE_ID, Hugo_Symbol, Variant_Type, cancer_type, HGVSp_Short, Mutation_Status) %>%
+    group_by(SAMPLE_ID, Hugo_Symbol, Variant_Type, oncogenic, cancer_type, HGVSp_Short, Mutation_Status) %>%
     dplyr::summarise(highest_level = toString(highest_level)) %>%
     ungroup() %>%
     mutate(highest_level = gsub(",.*", "", highest_level),
            alteration = "Mut") %>%
-    left_join(path_df, by = "Hugo_Symbol") %>%
     mutate(onco_type = ifelse(Hugo_Symbol %in% tumor_suppressor_list, "tumor_suppresor", NA)) %>%
     ###
     ### work in progress
@@ -1472,12 +1470,12 @@ action_main_tx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     distinct() %>%
     rename(gene_symbol = Hugo_Symbol) %>%
     mutate(gene_symbol = as.character(gene_symbol)) %>%
-    dplyr::select(SAMPLE_ID, gene_symbol, alteration, highest_level, cancer_type, pathway, Mutation_Status, onco_type) %>%
+    dplyr::select(SAMPLE_ID, gene_symbol, alteration, highest_level, oncogenic, cancer_type, Mutation_Status, onco_type) %>%
     dplyr::rename(sample_id = SAMPLE_ID) %>%
     mutate(onco_type = ifelse(Mutation_Status == "GERMLINE", "germline", onco_type),
            gene_symbol = ifelse(Mutation_Status == "GERMLINE", paste0(gene_symbol, "*"), gene_symbol)) %>%
     dplyr::select(-Mutation_Status) %>%
-    group_by(sample_id, gene_symbol, alteration, highest_level, cancer_type, onco_type) %>%
+    group_by(sample_id, gene_symbol, alteration, highest_level, oncogenic, cancer_type, onco_type) %>%
     dplyr::slice(1) %>%
     ungroup()
   
@@ -1490,6 +1488,29 @@ action_main_tx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     gene_final_df <- mut_df
   }
   
+  # Combine all tumor suppressor alterations (del, mut, fus)
+  # If the alteration is on a tumor suppresor, ignore alteration label
+  # Clean up gene symbol, remove everything after the comma
+  # Remove mutation label to clean up y axis
+  gene_final_df <- gene_final_df %>%
+    filter(is.na(highest_level) == F & highest_level != "") %>%
+    mutate_if(is.factor, as.character) %>%
+    mutate(onco_type = ifelse(is.na(onco_type) == T, "oncogene", onco_type)) %>%
+    group_by(sample_id, gene_symbol, highest_level, cancer_type, onco_type) %>%
+    dplyr::summarise(alteration = toString(alteration)) %>%
+    ungroup() %>%
+    mutate(alteration = as.character(alteration)) %>%
+    mutate(alteration = ifelse(onco_type == "tumor_suppresor", "Del", alteration)) %>%
+    mutate(alteration = gsub(",.*", "", alteration)) %>%
+    mutate(gene_symbol_label = gsub(" Mut", "", paste0(gene_symbol, " ", alteration)))
+  
+  # Optional include oncogenic alterations in plot
+  if (include_oncogenic == T){
+    gene_final_df <- gene_final_df %>%
+      mutate(highest_level = ifelse((is.na(highest_level) == T | highest_level == "") &
+                                      grepl("Oncogenic", oncogenic) == T, "ONCOGENIC", highest_level))
+  } 
+  
   # Optional select only the highest level
   if (only_highest_level == T){
     colnames(clin_df)[which(names(clin_df) == "SAMPLE_ID")] <- "sample_id"
@@ -1498,23 +1519,6 @@ action_main_tx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
       mutate_if(is.factor, as.character) %>%
       filter(HIGHEST_LEVEL == highest_level)
   }
-  
-  # Combine all tumor suppressor alterations (del, mut, fus)
-  # If the alteration is on a tumor suppresor, ignore alteration label
-  # Clean up gene symbol, remove everything after the comma
-  # Remove mutation label to clean up y axis
-  gene_final_df <- gene_final_df %>%
-    filter(is.na(highest_level) == F & highest_level != "") %>%
-    mutate_if(is.factor, as.character) %>%
-    mutate(pathway = ifelse(is.na(pathway) == TRUE, "XXX", pathway),
-           onco_type = ifelse(is.na(onco_type) == T, "oncogene", onco_type)) %>%
-    group_by(sample_id, gene_symbol, highest_level, cancer_type, pathway, onco_type) %>%
-    dplyr::summarise(alteration = toString(alteration)) %>%
-    ungroup() %>%
-    mutate(alteration = as.character(alteration)) %>%
-    mutate(alteration = ifelse(onco_type == "tumor_suppresor", "Del", alteration)) %>%
-    mutate(alteration = gsub(",.*", "", alteration)) %>%
-    mutate(gene_symbol_label = gsub(" Mut", "", paste0(gene_symbol, " ", alteration)))
   
   # Manual alterations
   ###
@@ -1546,6 +1550,29 @@ action_main_tx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     dplyr::mutate(percentage = 100*freq,
                   label_text = round(percentage, 0),
                   label_text = ifelse(percentage > 0 & percentage < 1, " ", label_text))
+  
+  # Optional add pathway if provided, if not use it to set gene list
+  if (missing(path_df) == T) {
+    path_df <- gene_final_df  %>%
+      left_join(prop_main_plot_df) %>%
+      dplyr::select(gene_symbol_label, highest_level, cancer_type, percentage) %>%
+      distinct() %>%
+      group_by(gene_symbol_label, highest_level) %>%
+      mutate(count = n()) %>%
+      ungroup() %>%
+      arrange(highest_level, desc(count), desc(percentage), gene_symbol_label) %>%
+      group_by(gene_symbol_label) %>%
+      dplyr::slice(1) %>%
+      ungroup() %>%
+      arrange(highest_level, desc(count), desc(percentage), gene_symbol_label) %>%
+      mutate(pathway = row_number()) %>%
+      dplyr::select(gene_symbol_label, pathway)
+    gene_final_df <- gene_final_df %>% left_join(path_df)
+  } else {
+    path_df <- read.delim(path_df)
+    colnames(path_df)[] <- c("gene_symbol", "pathway")
+    gene_final_df <- gene_final_df %>% left_join(path_df)
+  }
   
   # Add germline label if figure includes both somatic and germline
   if (status == "both") {
@@ -1618,8 +1645,8 @@ action_main_tx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
           panel.background = element_blank(),
           panel.border = element_rect(colour = "black", fill=NA, size=0.5),
           axis.title.x = element_blank(),
-          axis.title.y = element_blank(),
           axis.ticks.x = element_blank(),
+          axis.title.y = element_text(size = 8),
           plot.margin = unit(c(0.05, 0.05, 0.05, 0.05), "cm"),
           legend.title = element_text(size = 8),
           legend.text = element_text(size = 6),
@@ -1663,7 +1690,6 @@ action_main_dx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
   mut_df <- read.delim(mut_df)
   clin_df <- read.delim(clin_df)
   data_freeze <- read.delim(data_freeze)
-  path_df <- read.delim(path_df)
   tsg_df <- read.delim(tsg_list, header = F)
   prop_level_df <- read.delim(prop_level_df)
   
@@ -1725,9 +1751,6 @@ action_main_dx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     filter(SAMPLE_ID %in% data_freeze$SAMPLE_ID,
            grepl("Oncogenic", oncogenic))
   
-  # Pathways
-  colnames(path_df)[] <- c("HUGO_SYMBOL", "pathway")
-  
   # Set tumor suppresor list
   tumor_suppressor_list <- as.character(tsg_df$V1)
   
@@ -1759,26 +1782,22 @@ action_main_dx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     inner_join(dplyr::select(data_freeze, SAMPLE_ID, cancer_type), by = "SAMPLE_ID") %>%
     dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, LEVEL_Dx1, LEVEL_Dx2, LEVEL_Dx3, 
                   Highest_level, cancer_type) %>%
-    left_join(path_df, by = "HUGO_SYMBOL") %>%
     distinct() %>%
     filter(is.na(Highest_level) == F) %>%
     mutate(ALTERATION = substring(ALTERATION, 1, 3)) %>%
-    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, Highest_level, cancer_type, pathway) %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, Highest_level, cancer_type) %>%
     dplyr::rename(sample_id = SAMPLE_ID, 
                   gene_symbol = HUGO_SYMBOL, 
                   alteration = ALTERATION, 
                   highest_level = Highest_level) %>%
     mutate(onco_type = ifelse(gene_symbol %in% tumor_suppressor_list, "tumor_suppresor", NA))
   
-  # Change pathway names for fusion and mutation data frames
-  colnames(path_df)[] <- c("Hugo_Symbol", "pathway")
-  
   # Create fusion data frame
   # Combine fusions where the hugo gene symbol is counted twice (impact and archer)
   fus_df <- fus_df %>%
     inner_join(dplyr::select(data_freeze, SAMPLE_ID, cancer_type), by = "SAMPLE_ID") %>%
-    dplyr::select(SAMPLE_ID, Hugo_Symbol, Fusion, LEVEL_Dx1, LEVEL_Dx2, LEVEL_Dx3
-                  , Highest_level, cancer_type) %>%
+    dplyr::select(SAMPLE_ID, Hugo_Symbol, Fusion, LEVEL_Dx1, LEVEL_Dx2, LEVEL_Dx3,
+                  Highest_level, cancer_type) %>%
     mutate_if(is.factor, as.character) %>%
     mutate(Fusion = gsub(" fusion", "", Fusion)) %>%
     mutate(Fusion = gsub(" - Archer", "", Fusion)) %>%
@@ -1806,9 +1825,8 @@ action_main_dx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
   # Add pathway, clean, add tumor suppresor columns
   fus_df <- fus_df %>%
     filter(Highest_level != "") %>%
-    left_join(path_df, by = "Hugo_Symbol") %>%
     mutate(Alteration = "Fus") %>%
-    dplyr::select(SAMPLE_ID, Fusion, Alteration, Highest_level, cancer_type, pathway) %>%
+    dplyr::select(SAMPLE_ID, Fusion, Alteration, Highest_level, cancer_type) %>%
     dplyr::rename(sample_id = SAMPLE_ID,
                   gene_symbol = Fusion,
                   alteration = Alteration,
@@ -1855,7 +1873,6 @@ action_main_dx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     ungroup() %>%
     mutate(highest_level = gsub(",.*", "", highest_level),
            alteration = "Mut") %>%
-    left_join(path_df, by = "Hugo_Symbol") %>%
     mutate(onco_type = ifelse(Hugo_Symbol %in% tumor_suppressor_list, "tumor_suppresor", NA)) %>%
     ###
     ### work in progress
@@ -1866,7 +1883,7 @@ action_main_dx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     distinct() %>%
     rename(gene_symbol = Hugo_Symbol) %>%
     mutate(gene_symbol = as.character(gene_symbol)) %>%
-    dplyr::select(SAMPLE_ID, gene_symbol, alteration, highest_level, cancer_type, pathway, Mutation_Status, onco_type) %>%
+    dplyr::select(SAMPLE_ID, gene_symbol, alteration, highest_level, cancer_type, Mutation_Status, onco_type) %>%
     dplyr::rename(sample_id = SAMPLE_ID) %>%
     mutate(onco_type = ifelse(Mutation_Status == "GERMLINE", "germline", onco_type),
            gene_symbol = ifelse(Mutation_Status == "GERMLINE", paste0(gene_symbol, "*"), gene_symbol)) %>%
@@ -1884,6 +1901,22 @@ action_main_dx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     gene_final_df <- mut_df
   }
   
+  # Combine all tumor suppressor alterations (del, mut, fus)
+  # If the alteration is on a tumor suppresor, ignore alteration label
+  # Clean up gene symbol, remove everything after the comma
+  # Remove mutation label to clean up y axis
+  gene_final_df <- gene_final_df %>%
+    filter(is.na(highest_level) == F & highest_level != "") %>%
+    mutate_if(is.factor, as.character) %>%
+    mutate(onco_type = ifelse(is.na(onco_type) == T, "oncogene", onco_type)) %>%
+    group_by(sample_id, gene_symbol, highest_level, cancer_type, onco_type) %>%
+    dplyr::summarise(alteration = toString(alteration)) %>%
+    ungroup() %>%
+    mutate(alteration = as.character(alteration)) %>%
+    mutate(alteration = ifelse(onco_type == "tumor_suppresor", "Del", alteration)) %>%
+    mutate(alteration = gsub(",.*", "", alteration)) %>%
+    mutate(gene_symbol_label = gsub(" Mut", "", paste0(gene_symbol, " ", alteration)))
+  
   # Optional select only the highest level
   if (only_highest_level == T){
     colnames(clin_df)[which(names(clin_df) == "SAMPLE_ID")] <- "sample_id"
@@ -1892,23 +1925,6 @@ action_main_dx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
       mutate_if(is.factor, as.character) %>%
       filter(HIGHEST_DX_LEVEL == highest_level)
   }
-  
-  # Combine all tumor suppressor alterations (del, mut, fus)
-  # If the alteration is on a tumor suppresor, ignore alteration label
-  # Clean up gene symbol, remove everything after the comma
-  # Remove mutation label to clean up y axis
-  gene_final_df <- gene_final_df %>%
-    filter(is.na(highest_level) == F & highest_level != "") %>%
-    mutate_if(is.factor, as.character) %>%
-    mutate(pathway = ifelse(is.na(pathway) == TRUE, "XXX", pathway),
-           onco_type = ifelse(is.na(onco_type) == T, "oncogene", onco_type)) %>%
-    group_by(sample_id, gene_symbol, highest_level, cancer_type, pathway, onco_type) %>%
-    dplyr::summarise(alteration = toString(alteration)) %>%
-    ungroup() %>%
-    mutate(alteration = as.character(alteration)) %>%
-    mutate(alteration = ifelse(onco_type == "tumor_suppresor", "Del", alteration)) %>%
-    mutate(alteration = gsub(",.*", "", alteration)) %>%
-    mutate(gene_symbol_label = gsub(" Mut", "", paste0(gene_symbol, " ", alteration)))
   
   # Manual alterations
   ###
@@ -1940,6 +1956,29 @@ action_main_dx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     dplyr::mutate(percentage = 100*freq,
                   label_text = round(percentage, 0),
                   label_text = ifelse(percentage > 0 & percentage < 1, " ", label_text))
+  
+  # Optional add pathway if provided, if not use it to set gene list
+  if (missing(path_df) == T) {
+    path_df <- gene_final_df  %>%
+      left_join(prop_main_plot_df) %>%
+      dplyr::select(gene_symbol_label, highest_level, cancer_type, percentage) %>%
+      distinct() %>%
+      group_by(gene_symbol_label, highest_level) %>%
+      mutate(count = n()) %>%
+      ungroup() %>%
+      arrange(highest_level, desc(count), desc(percentage), gene_symbol_label) %>%
+      group_by(gene_symbol_label) %>%
+      dplyr::slice(1) %>%
+      ungroup() %>%
+      arrange(highest_level, desc(count), desc(percentage), gene_symbol_label) %>%
+      mutate(pathway = row_number()) %>%
+      dplyr::select(gene_symbol_label, pathway)
+    gene_final_df <- gene_final_df %>% left_join(path_df)
+  } else {
+    path_df <- read.delim(path_df)
+    colnames(path_df)[] <- c("gene_symbol", "pathway")
+    gene_final_df <- gene_final_df %>% left_join(path_df)
+  }
   
   # Add germline label if figure includes both somatic and germline
   if (status == "both") {
@@ -2012,8 +2051,8 @@ action_main_dx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
           panel.background = element_blank(),
           panel.border = element_rect(colour = "black", fill=NA, size=0.5),
           axis.title.x = element_blank(),
-          axis.title.y = element_blank(),
           axis.ticks.x = element_blank(),
+          axis.title.y = element_text(size = 8),
           plot.margin = unit(c(0.05, 0.05, 0.05, 0.05), "cm"),
           legend.title = element_text(size = 8),
           legend.text = element_text(size = 6),
@@ -2057,7 +2096,6 @@ action_main_px_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
   mut_df <- read.delim(mut_df)
   clin_df <- read.delim(clin_df)
   data_freeze <- read.delim(data_freeze)
-  path_df <- read.delim(path_df)
   tsg_df <- read.delim(tsg_list, header = F)
   prop_level_df <- read.delim(prop_level_df)
   
@@ -2119,9 +2157,6 @@ action_main_px_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     filter(SAMPLE_ID %in% data_freeze$SAMPLE_ID,
            grepl("Oncogenic", oncogenic))
   
-  # Pathways
-  colnames(path_df)[] <- c("HUGO_SYMBOL", "pathway")
-  
   # Set tumor suppresor list
   tumor_suppressor_list <- as.character(tsg_df$V1)
   
@@ -2153,26 +2188,22 @@ action_main_px_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     inner_join(dplyr::select(data_freeze, SAMPLE_ID, cancer_type), by = "SAMPLE_ID") %>%
     dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, LEVEL_Px1, LEVEL_Px2, LEVEL_Px3, 
                   Highest_level, cancer_type) %>%
-    left_join(path_df, by = "HUGO_SYMBOL") %>%
     distinct() %>%
     filter(is.na(Highest_level) == F) %>%
     mutate(ALTERATION = substring(ALTERATION, 1, 3)) %>%
-    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, Highest_level, cancer_type, pathway) %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, Highest_level, cancer_type) %>%
     dplyr::rename(sample_id = SAMPLE_ID, 
                   gene_symbol = HUGO_SYMBOL, 
                   alteration = ALTERATION, 
                   highest_level = Highest_level) %>%
     mutate(onco_type = ifelse(gene_symbol %in% tumor_suppressor_list, "tumor_suppresor", NA))
   
-  # Change pathway names for fusion and mutation data frames
-  colnames(path_df)[] <- c("Hugo_Symbol", "pathway")
-  
   # Create fusion data frame
   # Combine fusions where the hugo gene symbol is counted twice (impact and archer)
   fus_df <- fus_df %>%
     inner_join(dplyr::select(data_freeze, SAMPLE_ID, cancer_type), by = "SAMPLE_ID") %>%
-    dplyr::select(SAMPLE_ID, Hugo_Symbol, Fusion, LEVEL_Px1, LEVEL_Px2, LEVEL_Px3
-                  , Highest_level, cancer_type) %>%
+    dplyr::select(SAMPLE_ID, Hugo_Symbol, Fusion, LEVEL_Px1, LEVEL_Px2, LEVEL_Px3,
+                  Highest_level, cancer_type) %>%
     mutate_if(is.factor, as.character) %>%
     mutate(Fusion = gsub(" fusion", "", Fusion)) %>%
     mutate(Fusion = gsub(" - Archer", "", Fusion)) %>%
@@ -2200,9 +2231,8 @@ action_main_px_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
   # Add pathway, clean, add tumor suppresor columns
   fus_df <- fus_df %>%
     filter(Highest_level != "") %>%
-    left_join(path_df, by = "Hugo_Symbol") %>%
     mutate(Alteration = "Fus") %>%
-    dplyr::select(SAMPLE_ID, Fusion, Alteration, Highest_level, cancer_type, pathway) %>%
+    dplyr::select(SAMPLE_ID, Fusion, Alteration, Highest_level, cancer_type) %>%
     dplyr::rename(sample_id = SAMPLE_ID,
                   gene_symbol = Fusion,
                   alteration = Alteration,
@@ -2249,7 +2279,6 @@ action_main_px_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     ungroup() %>%
     mutate(highest_level = gsub(",.*", "", highest_level),
            alteration = "Mut") %>%
-    left_join(path_df, by = "Hugo_Symbol") %>%
     mutate(onco_type = ifelse(Hugo_Symbol %in% tumor_suppressor_list, "tumor_suppresor", NA)) %>%
     ###
     ### work in progress
@@ -2260,7 +2289,7 @@ action_main_px_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     distinct() %>%
     rename(gene_symbol = Hugo_Symbol) %>%
     mutate(gene_symbol = as.character(gene_symbol)) %>%
-    dplyr::select(SAMPLE_ID, gene_symbol, alteration, highest_level, cancer_type, pathway, Mutation_Status, onco_type) %>%
+    dplyr::select(SAMPLE_ID, gene_symbol, alteration, highest_level, cancer_type, Mutation_Status, onco_type) %>%
     dplyr::rename(sample_id = SAMPLE_ID) %>%
     mutate(onco_type = ifelse(Mutation_Status == "GERMLINE", "germline", onco_type),
            gene_symbol = ifelse(Mutation_Status == "GERMLINE", paste0(gene_symbol, "*"), gene_symbol)) %>%
@@ -2278,6 +2307,22 @@ action_main_px_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     gene_final_df <- mut_df
   }
   
+  # Combine all tumor suppressor alterations (del, mut, fus)
+  # If the alteration is on a tumor suppresor, ignore alteration label
+  # Clean up gene symbol, remove everything after the comma
+  # Remove mutation label to clean up y axis
+  gene_final_df <- gene_final_df %>%
+    filter(is.na(highest_level) == F & highest_level != "") %>%
+    mutate_if(is.factor, as.character) %>%
+    mutate(onco_type = ifelse(is.na(onco_type) == T, "oncogene", onco_type)) %>%
+    group_by(sample_id, gene_symbol, highest_level, cancer_type, onco_type) %>%
+    dplyr::summarise(alteration = toString(alteration)) %>%
+    ungroup() %>%
+    mutate(alteration = as.character(alteration)) %>%
+    mutate(alteration = ifelse(onco_type == "tumor_suppresor", "Del", alteration)) %>%
+    mutate(alteration = gsub(",.*", "", alteration)) %>%
+    mutate(gene_symbol_label = gsub(" Mut", "", paste0(gene_symbol, " ", alteration)))
+  
   # Optional select only the highest level
   if (only_highest_level == T){
     colnames(clin_df)[which(names(clin_df) == "SAMPLE_ID")] <- "sample_id"
@@ -2286,23 +2331,6 @@ action_main_px_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
       mutate_if(is.factor, as.character) %>%
       filter(HIGHEST_PX_LEVEL == highest_level)
   }
-  
-  # Combine all tumor suppressor alterations (del, mut, fus)
-  # If the alteration is on a tumor suppresor, ignore alteration label
-  # Clean up gene symbol, remove everything after the comma
-  # Remove mutation label to clean up y axis
-  gene_final_df <- gene_final_df %>%
-    filter(is.na(highest_level) == F & highest_level != "") %>%
-    mutate_if(is.factor, as.character) %>%
-    mutate(pathway = ifelse(is.na(pathway) == TRUE, "XXX", pathway),
-           onco_type = ifelse(is.na(onco_type) == T, "oncogene", onco_type)) %>%
-    group_by(sample_id, gene_symbol, highest_level, cancer_type, pathway, onco_type) %>%
-    dplyr::summarise(alteration = toString(alteration)) %>%
-    ungroup() %>%
-    mutate(alteration = as.character(alteration)) %>%
-    mutate(alteration = ifelse(onco_type == "tumor_suppresor", "Del", alteration)) %>%
-    mutate(alteration = gsub(",.*", "", alteration)) %>%
-    mutate(gene_symbol_label = gsub(" Mut", "", paste0(gene_symbol, " ", alteration)))
   
   # Manual alterations
   ###
@@ -2334,6 +2362,29 @@ action_main_px_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     dplyr::mutate(percentage = 100*freq,
                   label_text = round(percentage, 0),
                   label_text = ifelse(percentage > 0 & percentage < 1, " ", label_text))
+  
+  # Optional add pathway if provided, if not use it to set gene list
+  if (missing(path_df) == T) {
+    path_df <- gene_final_df  %>%
+      left_join(prop_main_plot_df) %>%
+      dplyr::select(gene_symbol_label, highest_level, cancer_type, percentage) %>%
+      distinct() %>%
+      group_by(gene_symbol_label, highest_level) %>%
+      mutate(count = n()) %>%
+      ungroup() %>%
+      arrange(highest_level, desc(count), desc(percentage), gene_symbol_label) %>%
+      group_by(gene_symbol_label) %>%
+      dplyr::slice(1) %>%
+      ungroup() %>%
+      arrange(highest_level, desc(count), desc(percentage), gene_symbol_label) %>%
+      mutate(pathway = row_number()) %>%
+      dplyr::select(gene_symbol_label, pathway)
+    gene_final_df <- gene_final_df %>% left_join(path_df)
+  } else {
+    path_df <- read.delim(path_df)
+    colnames(path_df)[] <- c("gene_symbol", "pathway")
+    gene_final_df <- gene_final_df %>% left_join(path_df)
+  }
   
   # Add germline label if figure includes both somatic and germline
   if (status == "both") {
@@ -2406,8 +2457,8 @@ action_main_px_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
           panel.background = element_blank(),
           panel.border = element_rect(colour = "black", fill=NA, size=0.5),
           axis.title.x = element_blank(),
-          axis.title.y = element_blank(),
           axis.ticks.x = element_blank(),
+          axis.title.y = element_text(size = 8),
           plot.margin = unit(c(0.05, 0.05, 0.05, 0.05), "cm"),
           legend.title = element_text(size = 8),
           legend.text = element_text(size = 6),
@@ -2429,6 +2480,356 @@ action_main_px_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     guides(fill = guide_legend(override.aes = list(size = 1)))
   
   return(action_tile_plot_all)
+}
+
+
+# Get ctionability master alterations output that includes gene level annotations
+action_alterations_summary_tx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
+                                              status = c("somatic", "germline", "both"),
+                                              group_col, consent_col,
+                                              prop_level_df = "./actionability_levels_barplot_table_tx.txt",
+                                              only_highest_level = F,
+                                              msi_tmb_status,
+                                              msi_tmb_df){
+  # Read in data
+  cna_df <- read.delim(cna_df)
+  fus_df <- read.delim(fus_df)
+  mut_df <- read.delim(mut_df)
+  clin_df <- read.delim(clin_df)
+  data_freeze <- read.delim(data_freeze)
+  prop_level_df <- read.delim(prop_level_df)
+  
+  # Set order
+  cancer_order_other <- as.character(unique(prop_level_df[,c(group_col)]))
+  
+  # Optional MSI/TMB addition
+  if (msi_tmb_status == TRUE){
+    msi_tmb_df <- read.delim(msi_tmb_path)
+    msi_tmb_df <- msi_tmb_df %>%
+      dplyr::select(SAMPLE_ID) %>% 
+      mutate_if(is.factor, as.character) %>%
+      mutate(Highest_level = "LEVEL_1_MSI-H_TMB-H") %>%
+      distinct()
+    data_freeze <- filter(data_freeze, !SAMPLE_ID %in% msi_tmb_df$SAMPLE_ID)
+  } 
+  
+  # Clean & filter clinical data
+  # Add group column
+  clin_df <- clin_df %>%
+    mutate(SAMPLE_ID = as.character(SAMPLE_ID)) %>%
+    filter(SAMPLE_ID %in% data_freeze$SAMPLE_ID) %>%
+    left_join(data_freeze[,c("SAMPLE_ID", group_col, consent_col)], by = c("SAMPLE_ID"))
+  group_col_dup <- paste0(group_col, ".y")
+  colnames(clin_df)[which(names(clin_df) == group_col_dup)] <- group_col
+  colnames(clin_df)[which(names(clin_df) == consent_col)] <- "consent"
+  
+  # Clean, filter, rename genomic data 
+  # Fix column names if upper
+  fus_df <- fus_df %>%
+    dplyr::rename_all(recode, 
+                      Tumor_Sample_Barcode = "SAMPLE_ID", 
+                      HIGHEST_LEVEL = "Highest_level",
+                      ONCOGENIC = "oncogenic",
+                      Hugo_Symbol = "HUGO_SYMBOL",) %>%
+    mutate(SAMPLE_ID = as.character(SAMPLE_ID)) %>%
+    filter(SAMPLE_ID %in% data_freeze$SAMPLE_ID) %>%
+    mutate(Fusion = gsub(" fusion", "", Fusion)) %>%
+    mutate(Fusion = gsub(" - Archer", "", Fusion)) %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, oncogenic, Highest_level, Fusion) %>%
+    rowwise() %>%
+    mutate(Fusion = ifelse(grepl("intragenic", Fusion), Fusion, 
+                           paste(sort(unlist(strsplit(Fusion, "-", fixed = TRUE))), collapse = "-"))) %>%
+    ungroup() %>%
+    distinct() %>%
+    dplyr::select(-Fusion) %>%
+    mutate(ALTERATION = "Fusion") %>%
+    filter(grepl("Oncogenic", oncogenic) == T, is.na(Highest_level) == F & Highest_level != "") %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, oncogenic, Highest_level)
+  
+  # CNA
+  cna_df <- cna_df %>%
+    dplyr::rename_all(recode,
+                      Tumor_Sample_Barcode = "SAMPLE_ID", 
+                      HIGHEST_LEVEL = "Highest_level",
+                      ONCOGENIC = "oncogenic") %>%
+    mutate(SAMPLE_ID = as.character(SAMPLE_ID)) %>%
+    filter(SAMPLE_ID %in% data_freeze$SAMPLE_ID)  %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, oncogenic, Highest_level) %>%
+    filter(grepl("Oncogenic", oncogenic) == T, is.na(Highest_level) == F & Highest_level != "") %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, oncogenic, Highest_level)
+  
+  # Mutations
+  # Filter for status
+  if (status == "somatic") {
+    mut_df <- filter(mut_df, Mutation_Status != "GERMLINE" | is.na(Mutation_Status) == T)
+  } else if (status == "germline") {
+    clin_df <- filter(clin_df, consent == "YES")
+    mut_df <- filter(mut_df, Mutation_Status == "GERMLINE")
+    mut_df <- mut_df[mut_df$SAMPLE_ID %in% clin_df$SAMPLE_ID,]
+  }
+  # Clean & Filter
+  mut_df <- mut_df %>%
+    dplyr::rename_all(recode,
+                      Hugo_Symbol = "HUGO_SYMBOL",
+                      Tumor_Sample_Barcode = "SAMPLE_ID", 
+                      HIGHEST_LEVEL = "Highest_level",
+                      ONCOGENIC = "oncogenic") %>%
+    mutate(SAMPLE_ID = as.character(SAMPLE_ID)) %>%
+    filter(SAMPLE_ID %in% data_freeze$SAMPLE_ID) %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, oncogenic, Highest_level, HGVSp_Short) %>%
+    filter(grepl("Oncogenic", oncogenic) == T, is.na(Highest_level) == F & Highest_level != "") %>%
+    mutate(ALTERATION = "Mutation") %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, oncogenic, Highest_level, HGVSp_Short)
+  
+  
+  # rbind to create master alterations data frame
+  # Filter for status for mutation data frame
+  if (status == "somatic" | status == "both") {
+    alt_final <- rbind(cna_df, fus_df)
+    alt_final <- plyr::rbind.fill(alt_final, mut_df)
+  } else if (status == "germline") {
+    alt_final <- mut_df
+  }
+  alt_final <- left_join(alt_final, data_freeze[,c("SAMPLE_ID", group_col)], by = "SAMPLE_ID")
+  
+  # Save
+  write.table(alt_final, "actionability_master_alterations_table_gene_tx.txt", sep = "\t", row.names = F, quote = F)
+  return(alt_final)
+
+}
+
+
+# Create new function that gives actionability master alterations output but also includes gene level annotations
+action_alterations_summary_dx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
+                                              status = c("somatic", "germline", "both"),
+                                              group_col, consent_col,
+                                              prop_level_df = "./actionability_levels_barplot_table_tx.txt",
+                                              only_highest_level = F,
+                                              msi_tmb_status,
+                                              msi_tmb_df){
+  # Read in data
+  cna_df <- read.delim(cna_df)
+  fus_df <- read.delim(fus_df)
+  mut_df <- read.delim(mut_df)
+  clin_df <- read.delim(clin_df)
+  data_freeze <- read.delim(data_freeze)
+  prop_level_df <- read.delim(prop_level_df)
+  
+  # Set order
+  cancer_order_other <- as.character(unique(prop_level_df[,c(group_col)]))
+  
+  # Optional MSI/TMB addition
+  if (msi_tmb_status == TRUE){
+    msi_tmb_df <- read.delim(msi_tmb_path)
+    msi_tmb_df <- msi_tmb_df %>%
+      dplyr::select(SAMPLE_ID) %>% 
+      mutate_if(is.factor, as.character) %>%
+      mutate(Highest_level = "LEVEL_1_MSI-H_TMB-H") %>%
+      distinct()
+    data_freeze <- filter(data_freeze, !SAMPLE_ID %in% msi_tmb_df$SAMPLE_ID)
+  } 
+  
+  # Clean & filter clinical data
+  # Add group column
+  clin_df <- clin_df %>%
+    mutate(SAMPLE_ID = as.character(SAMPLE_ID)) %>%
+    filter(SAMPLE_ID %in% data_freeze$SAMPLE_ID) %>%
+    left_join(data_freeze[,c("SAMPLE_ID", group_col, consent_col)], by = c("SAMPLE_ID"))
+  group_col_dup <- paste0(group_col, ".y")
+  colnames(clin_df)[which(names(clin_df) == group_col_dup)] <- group_col
+  colnames(clin_df)[which(names(clin_df) == consent_col)] <- "consent"
+  
+  # Clean, filter, rename genomic data 
+  # Fix column names if upper
+  fus_df <- fus_df %>%
+    dplyr::rename_all(recode, 
+                      Tumor_Sample_Barcode = "SAMPLE_ID", 
+                      HIGHEST_DX_LEVEL = "Highest_level",
+                      ONCOGENIC = "oncogenic",
+                      Hugo_Symbol = "HUGO_SYMBOL",) %>%
+    mutate(SAMPLE_ID = as.character(SAMPLE_ID)) %>%
+    filter(SAMPLE_ID %in% data_freeze$SAMPLE_ID) %>%
+    mutate(Fusion = gsub(" fusion", "", Fusion)) %>%
+    mutate(Fusion = gsub(" - Archer", "", Fusion)) %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, oncogenic, Highest_level, Fusion) %>%
+    rowwise() %>%
+    mutate(Fusion = ifelse(grepl("intragenic", Fusion), Fusion, 
+                           paste(sort(unlist(strsplit(Fusion, "-", fixed = TRUE))), collapse = "-"))) %>%
+    ungroup() %>%
+    distinct() %>%
+    dplyr::select(-Fusion) %>%
+    mutate(ALTERATION = "Fusion") %>%
+    filter(grepl("Oncogenic", oncogenic) == T, is.na(Highest_level) == F & Highest_level != "") %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, oncogenic, Highest_level)
+  
+  # CNA
+  cna_df <- cna_df %>%
+    dplyr::rename_all(recode,
+                      Tumor_Sample_Barcode = "SAMPLE_ID", 
+                      HIGHEST_DX_LEVEL = "Highest_level",
+                      ONCOGENIC = "oncogenic") %>%
+    mutate(SAMPLE_ID = as.character(SAMPLE_ID)) %>%
+    filter(SAMPLE_ID %in% data_freeze$SAMPLE_ID)  %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, oncogenic, Highest_level) %>%
+    filter(grepl("Oncogenic", oncogenic) == T, is.na(Highest_level) == F & Highest_level != "") %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, oncogenic, Highest_level)
+  
+  # Mutations
+  # Filter for status
+  if (status == "somatic") {
+    mut_df <- filter(mut_df, Mutation_Status != "GERMLINE" | is.na(Mutation_Status) == T)
+  } else if (status == "germline") {
+    clin_df <- filter(clin_df, consent == "YES")
+    mut_df <- filter(mut_df, Mutation_Status == "GERMLINE")
+    mut_df <- mut_df[mut_df$SAMPLE_ID %in% clin_df$SAMPLE_ID,]
+  }
+  # Clean & Filter
+  mut_df <- mut_df %>%
+    dplyr::rename_all(recode,
+                      Hugo_Symbol = "HUGO_SYMBOL",
+                      Tumor_Sample_Barcode = "SAMPLE_ID", 
+                      HIGHEST_DX_LEVEL = "Highest_level",
+                      ONCOGENIC = "oncogenic") %>%
+    mutate(SAMPLE_ID = as.character(SAMPLE_ID)) %>%
+    filter(SAMPLE_ID %in% data_freeze$SAMPLE_ID) %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, oncogenic, Highest_level, HGVSp_Short) %>%
+    filter(grepl("Oncogenic", oncogenic) == T, is.na(Highest_level) == F & Highest_level != "") %>%
+    mutate(ALTERATION = "Mutation") %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, oncogenic, Highest_level, HGVSp_Short)
+  
+  
+  # rbind to create master alterations data frame
+  # Filter for status for mutation data frame
+  if (status == "somatic" | status == "both") {
+    alt_final <- rbind(cna_df, fus_df)
+    alt_final <- plyr::rbind.fill(alt_final, mut_df)
+  } else if (status == "germline") {
+    alt_final <- mut_df
+  }
+  alt_final <- left_join(alt_final, data_freeze[,c("SAMPLE_ID", group_col)], by = "SAMPLE_ID")
+  
+  # Save
+  write.table(alt_final, "actionability_master_alterations_table_gene_dx.txt", sep = "\t", row.names = F, quote = F)
+  return(alt_final)
+  
+  
+}
+
+
+# Create new function that gives actionability master alterations output but also includes gene level annotations
+action_alterations_summary_px_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
+                                              status = c("somatic", "germline", "both"),
+                                              group_col, consent_col,
+                                              prop_level_df = "./actionability_levels_barplot_table_px.txt",
+                                              only_highest_level = F,
+                                              msi_tmb_status,
+                                              msi_tmb_df){
+  # Read in data
+  cna_df <- read.delim(cna_df)
+  fus_df <- read.delim(fus_df)
+  mut_df <- read.delim(mut_df)
+  clin_df <- read.delim(clin_df)
+  data_freeze <- read.delim(data_freeze)
+  prop_level_df <- read.delim(prop_level_df)
+  
+  # Set order
+  cancer_order_other <- as.character(unique(prop_level_df[,c(group_col)]))
+  
+  # Optional MSI/TMB addition
+  if (msi_tmb_status == TRUE){
+    msi_tmb_df <- read.delim(msi_tmb_path)
+    msi_tmb_df <- msi_tmb_df %>%
+      dplyr::select(SAMPLE_ID) %>% 
+      mutate_if(is.factor, as.character) %>%
+      mutate(Highest_level = "LEVEL_1_MSI-H_TMB-H") %>%
+      distinct()
+    data_freeze <- filter(data_freeze, !SAMPLE_ID %in% msi_tmb_df$SAMPLE_ID)
+  } 
+  
+  # Clean & filter clinical data
+  # Add group column
+  clin_df <- clin_df %>%
+    mutate(SAMPLE_ID = as.character(SAMPLE_ID)) %>%
+    filter(SAMPLE_ID %in% data_freeze$SAMPLE_ID) %>%
+    left_join(data_freeze[,c("SAMPLE_ID", group_col, consent_col)], by = c("SAMPLE_ID"))
+  group_col_dup <- paste0(group_col, ".y")
+  colnames(clin_df)[which(names(clin_df) == group_col_dup)] <- group_col
+  colnames(clin_df)[which(names(clin_df) == consent_col)] <- "consent"
+  
+  # Clean, filter, rename genomic data 
+  # Fix column names if upper
+  fus_df <- fus_df %>%
+    dplyr::rename_all(recode, 
+                      Tumor_Sample_Barcode = "SAMPLE_ID", 
+                      HIGHEST_PX_LEVEL = "Highest_level",
+                      ONCOGENIC = "oncogenic",
+                      Hugo_Symbol = "HUGO_SYMBOL",) %>%
+    mutate(SAMPLE_ID = as.character(SAMPLE_ID)) %>%
+    filter(SAMPLE_ID %in% data_freeze$SAMPLE_ID) %>%
+    mutate(Fusion = gsub(" fusion", "", Fusion)) %>%
+    mutate(Fusion = gsub(" - Archer", "", Fusion)) %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, oncogenic, Highest_level, Fusion) %>%
+    rowwise() %>%
+    mutate(Fusion = ifelse(grepl("intragenic", Fusion), Fusion, 
+                           paste(sort(unlist(strsplit(Fusion, "-", fixed = TRUE))), collapse = "-"))) %>%
+    ungroup() %>%
+    distinct() %>%
+    dplyr::select(-Fusion) %>%
+    mutate(ALTERATION = "Fusion") %>%
+    filter(grepl("Oncogenic", oncogenic) == T, is.na(Highest_level) == F & Highest_level != "") %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, oncogenic, Highest_level)
+  
+  # CNA
+  cna_df <- cna_df %>%
+    dplyr::rename_all(recode,
+                      Tumor_Sample_Barcode = "SAMPLE_ID", 
+                      HIGHEST_PX_LEVEL = "Highest_level",
+                      ONCOGENIC = "oncogenic") %>%
+    mutate(SAMPLE_ID = as.character(SAMPLE_ID)) %>%
+    filter(SAMPLE_ID %in% data_freeze$SAMPLE_ID)  %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, oncogenic, Highest_level) %>%
+    filter(grepl("Oncogenic", oncogenic) == T, is.na(Highest_level) == F & Highest_level != "") %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, oncogenic, Highest_level)
+  
+  # Mutations
+  # Filter for status
+  if (status == "somatic") {
+    mut_df <- filter(mut_df, Mutation_Status != "GERMLINE" | is.na(Mutation_Status) == T)
+  } else if (status == "germline") {
+    clin_df <- filter(clin_df, consent == "YES")
+    mut_df <- filter(mut_df, Mutation_Status == "GERMLINE")
+    mut_df <- mut_df[mut_df$SAMPLE_ID %in% clin_df$SAMPLE_ID,]
+  }
+  # Clean & Filter
+  mut_df <- mut_df %>%
+    dplyr::rename_all(recode,
+                      Hugo_Symbol = "HUGO_SYMBOL",
+                      Tumor_Sample_Barcode = "SAMPLE_ID", 
+                      HIGHEST_PX_LEVEL = "Highest_level",
+                      ONCOGENIC = "oncogenic") %>%
+    mutate(SAMPLE_ID = as.character(SAMPLE_ID)) %>%
+    filter(SAMPLE_ID %in% data_freeze$SAMPLE_ID) %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, oncogenic, Highest_level, HGVSp_Short) %>%
+    filter(grepl("Oncogenic", oncogenic) == T, is.na(Highest_level) == F & Highest_level != "") %>%
+    mutate(ALTERATION = "Mutation") %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, oncogenic, Highest_level, HGVSp_Short)
+  
+  
+  # rbind to create master alterations data frame
+  # Filter for status for mutation data frame
+  if (status == "somatic" | status == "both") {
+    alt_final <- rbind(cna_df, fus_df)
+    alt_final <- plyr::rbind.fill(alt_final, mut_df)
+  } else if (status == "germline") {
+    alt_final <- mut_df
+  }
+  alt_final <- left_join(alt_final, data_freeze[,c("SAMPLE_ID", group_col)], by = "SAMPLE_ID")
+  
+  # Save
+  write.table(alt_final, "actionability_master_alterations_table_gene_px.txt", sep = "\t", row.names = F, quote = F)
+  return(alt_final)
+  
+  
 }
 
 
@@ -2583,12 +2984,13 @@ action_alterations_barplot_fun <- function(cna_df, mut_df, fus_df, clin_df, data
     labs(fill = "Actionable Alteration") +
     theme(axis.text.x = element_blank(),
           axis.ticks.x = element_blank(),
+          axis.title.y = element_text(size = 8),
           axis.text.y = element_text(size = 6),
           panel.border = element_rect(colour = "black", fill=NA, size=1),
           panel.background = element_blank(),
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
-          axis.line = element_line(colour = "black"),
+          axis.line = element_line(colour = "black", size=0),
           legend.title = element_text(size = 8),
           legend.text = element_text(size = 6),
           legend.key.size = unit(0.4, "cm"),
@@ -2688,12 +3090,13 @@ action_count_barplot_fun <- function(clin_df, data_freeze, group_col,
     labs(fill = "# of Actionable Alterations") +
     theme(axis.text.x = element_blank(),
           axis.ticks.x = element_blank(),
+          axis.title.y = element_text(size = 8),
           axis.text.y = element_text(size = 6),
           panel.border = element_rect(colour = "black", fill=NA, size=0.5),
           panel.background = element_blank(),
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
-          axis.line = element_line(colour = "black"),
+          axis.line = element_line(colour = "black", size=0),
           legend.title = element_text(size = 8),
           legend.text = element_text(size = 6),
           legend.key.size = unit(0.4, "cm"),
@@ -2715,7 +3118,8 @@ action_count_barplot_fun <- function(clin_df, data_freeze, group_col,
 
 # Create actionability alterations main plot
 action_main_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
-                            path_df, tsg_list, fusion_list,
+                            path_df,
+                            tsg_list, fusion_list,
                             prop_level_df = "./actionability_levels_barplot_table.txt",
                             group_col,
                             consent_col,
@@ -2724,7 +3128,8 @@ action_main_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
                             gene_order,
                             only_highest_level = F,
                             msi_tmb_status,
-                            msi_tmb_df){
+                            msi_tmb_df,
+                            include_oncogenic = F){
   
   # Read in data
   cna_df <- read.delim(cna_df)
@@ -2732,7 +3137,6 @@ action_main_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
   mut_df <- read.delim(mut_df)
   clin_df <- read.delim(clin_df)
   data_freeze <- read.delim(data_freeze)
-  path_df <- read.delim(path_df)
   tsg_df <- read.delim(tsg_list, header = F)
   prop_level_df <- read.delim(prop_level_df)
   
@@ -2794,9 +3198,6 @@ action_main_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     filter(SAMPLE_ID %in% data_freeze$SAMPLE_ID,
            grepl("Oncogenic", oncogenic))
   
-  # Pathways
-  colnames(path_df)[] <- c("HUGO_SYMBOL", "pathway")
-  
   # Set tumor suppresor list
   tumor_suppressor_list <- as.character(tsg_df$V1)
   
@@ -2827,27 +3228,23 @@ action_main_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
   cna_df <- cna_df %>%
     inner_join(dplyr::select(data_freeze, SAMPLE_ID, cancer_type), by = "SAMPLE_ID") %>%
     dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, LEVEL_1, LEVEL_2, LEVEL_3A,
-                  LEVEL_3B, LEVEL_4, Highest_level, cancer_type) %>%
-    left_join(path_df, by = "HUGO_SYMBOL") %>%
+                  LEVEL_3B, LEVEL_4, Highest_level, oncogenic, cancer_type) %>%
     distinct() %>%
     filter(is.na(Highest_level) == F) %>%
     mutate(ALTERATION = substring(ALTERATION, 1, 3)) %>%
-    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, Highest_level, cancer_type, pathway) %>%
+    dplyr::select(SAMPLE_ID, HUGO_SYMBOL, ALTERATION, Highest_level, oncogenic, cancer_type) %>%
     dplyr::rename(sample_id = SAMPLE_ID, 
                   gene_symbol = HUGO_SYMBOL, 
                   alteration = ALTERATION, 
                   highest_level = Highest_level) %>%
     mutate(onco_type = ifelse(gene_symbol %in% tumor_suppressor_list, "tumor_suppresor", NA))
   
-  # Change pathway names for fusion and mutation data frames
-  colnames(path_df)[] <- c("Hugo_Symbol", "pathway")
-  
   # Create fusion data frame
   # Combine fusions where the hugo gene symbol is counted twice (impact and archer)
   fus_df <- fus_df %>%
     inner_join(dplyr::select(data_freeze, SAMPLE_ID, cancer_type), by = "SAMPLE_ID") %>%
     dplyr::select(SAMPLE_ID, Hugo_Symbol, Fusion, LEVEL_1, LEVEL_2, LEVEL_3A,
-                  LEVEL_3B, LEVEL_4, Highest_level, cancer_type) %>%
+                  LEVEL_3B, LEVEL_4, Highest_level, oncogenic, cancer_type) %>%
     mutate_if(is.factor, as.character) %>%
     mutate(Fusion = gsub(" fusion", "", Fusion)) %>%
     mutate(Fusion = gsub(" - Archer", "", Fusion)) %>%
@@ -2872,12 +3269,11 @@ action_main_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
       mutate(Fusion = gsub("-intragenic", "", Fusion))
   }
   
-  # Add pathway, clean, add tumor suppresor columns
+  # Clean, add tumor suppresor columns
   fus_df <- fus_df %>%
     filter(Highest_level != "") %>%
-    left_join(path_df, by = "Hugo_Symbol") %>%
     mutate(Alteration = "Fus") %>%
-    dplyr::select(SAMPLE_ID, Fusion, Alteration, Highest_level, cancer_type, pathway) %>%
+    dplyr::select(SAMPLE_ID, Fusion, Alteration, Highest_level, oncogenic, cancer_type) %>%
     dplyr::rename(sample_id = SAMPLE_ID,
                   gene_symbol = Fusion,
                   alteration = Alteration,
@@ -2903,9 +3299,9 @@ action_main_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
   mut_df <- mut_df %>%
     inner_join(dplyr::select(data_freeze, SAMPLE_ID, cancer_type), by = "SAMPLE_ID") %>%
     dplyr::select(SAMPLE_ID, Hugo_Symbol, Variant_Type, LEVEL_1, LEVEL_2, LEVEL_3A,
-                  LEVEL_3B, LEVEL_4, Highest_level, cancer_type, HGVSp_Short, Mutation_Status)
+                  LEVEL_3B, LEVEL_4, Highest_level, oncogenic, cancer_type, HGVSp_Short, Mutation_Status)
   mut_df <- melt(mut_df, id.vars = c("SAMPLE_ID", "Hugo_Symbol", "Variant_Type", "Highest_level",
-                                     "cancer_type", "HGVSp_Short", "Mutation_Status"))
+                                     "oncogenic", "cancer_type", "HGVSp_Short", "Mutation_Status"))
   
   # Aggregate by everything but strip for the highest level
   # This is just in case there is a gene alteration that has more than one level
@@ -2919,12 +3315,11 @@ action_main_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     filter(is.na(highest_level) == F) %>%
     mutate(highest_level == as.character(highest_level),
            Mutation_Status = ifelse(is.na(Mutation_Status) == T, "", Mutation_Status)) %>%
-    group_by(SAMPLE_ID, Hugo_Symbol, Variant_Type, cancer_type, HGVSp_Short, Mutation_Status) %>%
+    group_by(SAMPLE_ID, Hugo_Symbol, Variant_Type, oncogenic, cancer_type, HGVSp_Short, Mutation_Status) %>%
     dplyr::summarise(highest_level = toString(highest_level)) %>%
     ungroup() %>%
     mutate(highest_level = gsub(",.*", "", highest_level),
            alteration = "Mut") %>%
-    left_join(path_df, by = "Hugo_Symbol") %>%
     mutate(onco_type = ifelse(Hugo_Symbol %in% tumor_suppressor_list, "tumor_suppresor", NA)) %>%
     ###
     ### work in progress
@@ -2935,12 +3330,12 @@ action_main_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     distinct() %>%
     rename(gene_symbol = Hugo_Symbol) %>%
     mutate(gene_symbol = as.character(gene_symbol)) %>%
-    dplyr::select(SAMPLE_ID, gene_symbol, alteration, highest_level, cancer_type, pathway, Mutation_Status, onco_type) %>%
+    dplyr::select(SAMPLE_ID, gene_symbol, alteration, highest_level, oncogenic, cancer_type, Mutation_Status, onco_type) %>%
     dplyr::rename(sample_id = SAMPLE_ID) %>%
     mutate(onco_type = ifelse(Mutation_Status == "GERMLINE", "germline", onco_type),
            gene_symbol = ifelse(Mutation_Status == "GERMLINE", paste0(gene_symbol, "*"), gene_symbol)) %>%
     dplyr::select(-Mutation_Status) %>%
-    group_by(sample_id, gene_symbol, alteration, highest_level, cancer_type, onco_type) %>%
+    group_by(sample_id, gene_symbol, alteration, highest_level, oncogenic, cancer_type, onco_type) %>%
     dplyr::slice(1) %>%
     ungroup()
   
@@ -2952,6 +3347,29 @@ action_main_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
   } else if (status == "germline") {
     gene_final_df <- mut_df
   }
+
+  # Combine all tumor suppressor alterations (del, mut, fus)
+  # If the alteration is on a tumor suppresor, ignore alteration label
+  # Clean up gene symbol, remove everything after the comma
+  # Remove mutation label to clean up y axis
+  gene_final_df <- gene_final_df %>%
+    filter(is.na(highest_level) == F & highest_level != "") %>%
+    mutate_if(is.factor, as.character) %>%
+    mutate(onco_type = ifelse(is.na(onco_type) == T, "oncogene", onco_type)) %>%
+    group_by(sample_id, gene_symbol, highest_level, cancer_type, onco_type) %>%
+    dplyr::summarise(alteration = toString(alteration)) %>%
+    ungroup() %>%
+    mutate(alteration = as.character(alteration)) %>%
+    mutate(alteration = ifelse(onco_type == "tumor_suppresor", "Del", alteration)) %>%
+    mutate(alteration = gsub(",.*", "", alteration)) %>%
+    mutate(gene_symbol_label = gsub(" Mut", "", paste0(gene_symbol, " ", alteration)))
+  
+  # Optional include oncogenic alterations in plot
+  if (include_oncogenic == T){
+    gene_final_df <- gene_final_df %>%
+      mutate(highest_level = ifelse((is.na(highest_level) == T | highest_level == "") &
+                                      grepl("Oncogenic", oncogenic) == T, "ONCOGENIC", highest_level))
+  } 
   
   # Optional select only the highest level
   if (only_highest_level == T){
@@ -2961,23 +3379,6 @@ action_main_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
       mutate_if(is.factor, as.character) %>%
       filter(HIGHEST_LEVEL == highest_level)
   }
-  
-  # Combine all tumor suppressor alterations (del, mut, fus)
-  # If the alteration is on a tumor suppresor, ignore alteration label
-  # Clean up gene symbol, remove everything after the comma
-  # Remove mutation label to clean up y axis
-  gene_final_df <- gene_final_df %>%
-    filter(is.na(highest_level) == F & highest_level != "") %>%
-    mutate_if(is.factor, as.character) %>%
-    mutate(pathway = ifelse(is.na(pathway) == TRUE, "XXX", pathway),
-           onco_type = ifelse(is.na(onco_type) == T, "oncogene", onco_type)) %>%
-    group_by(sample_id, gene_symbol, highest_level, cancer_type, pathway, onco_type) %>%
-    dplyr::summarise(alteration = toString(alteration)) %>%
-    ungroup() %>%
-    mutate(alteration = as.character(alteration)) %>%
-    mutate(alteration = ifelse(onco_type == "tumor_suppresor", "Del", alteration)) %>%
-    mutate(alteration = gsub(",.*", "", alteration)) %>%
-    mutate(gene_symbol_label = gsub(" Mut", "", paste0(gene_symbol, " ", alteration)))
   
   # Manual alterations
   ###
@@ -3009,6 +3410,29 @@ action_main_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     dplyr::mutate(percentage = 100*freq,
                   label_text = round(percentage, 0),
                   label_text = ifelse(percentage > 0 & percentage < 1, " ", label_text))
+  
+  # Optional add pathway if provided, if not use it to set gene list
+  if (missing(path_df) == T) {
+    path_df <- gene_final_df  %>%
+      left_join(prop_main_plot_df) %>%
+      dplyr::select(gene_symbol_label, highest_level, cancer_type, percentage) %>%
+      distinct() %>%
+      group_by(gene_symbol_label, highest_level) %>%
+      mutate(count = n()) %>%
+      ungroup() %>%
+      arrange(highest_level, desc(count), desc(percentage), gene_symbol_label) %>%
+      group_by(gene_symbol_label) %>%
+      dplyr::slice(1) %>%
+      ungroup() %>%
+      arrange(highest_level, desc(count), desc(percentage), gene_symbol_label) %>%
+      mutate(pathway = row_number()) %>%
+      dplyr::select(gene_symbol_label, pathway)
+    gene_final_df <- gene_final_df %>% left_join(path_df)
+  } else {
+    path_df <- read.delim(path_df)
+    colnames(path_df)[] <- c("gene_symbol", "pathway")
+    gene_final_df <- gene_final_df %>% left_join(path_df)
+  }
   
   # Add germline label if figure includes both somatic and germline
   if (status == "both") {
@@ -3079,13 +3503,13 @@ action_main_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
           axis.text.x = element_blank(),
           axis.text.y = element_text(size = 6), # colour = rev(text_tsg_col$col)),
           panel.background = element_blank(),
-          panel.border = element_rect(colour = "black", fill=NA, size=1),
+          panel.border = element_rect(colour = "black", fill=NA, size=0.5),
           axis.title.x = element_blank(),
-          axis.title.y = element_blank(),
           axis.ticks.x = element_blank(),
+          axis.title.y = element_text(size = 8),
           plot.margin = unit(c(0.05, 0.05, 0.05, 0.05), "cm"),
-          legend.title = element_text(size = 12),
-          legend.text = element_text(size = 8),
+          legend.title = element_text(size = 8),
+          legend.text = element_text(size = 6),
           legend.justification="left",
           legend.margin=margin(0,0,0,0),
           legend.box.margin=margin(-10,0,-10,-5)) +
@@ -3153,8 +3577,8 @@ action_main_msi_tmb_fun <- function(clin_df,
           panel.background = element_blank(),
           panel.border = element_rect(colour = "black", fill=NA, size=1),
           axis.title.x = element_blank(),
-          axis.title.y = element_blank(),
           axis.ticks.x = element_blank(),
+          axis.title.y = element_text(size = 8),
           plot.margin = unit(c(0.05, 0.05, 0.1, 0.05), "cm"),
           legend.justification="left",
           legend.margin = margin(0,0,0,0),

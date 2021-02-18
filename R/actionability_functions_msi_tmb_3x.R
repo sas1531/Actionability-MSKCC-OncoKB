@@ -1488,6 +1488,13 @@ action_main_tx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     gene_final_df <- mut_df
   }
   
+  # Optional include oncogenic alterations in plot
+  if (include_oncogenic == T){
+    gene_final_df <- gene_final_df %>%
+      mutate(highest_level = ifelse((is.na(highest_level) == T | highest_level == "") &
+                                      grepl("Oncogenic", oncogenic) == T, "ONCOGENIC", highest_level))
+  } 
+  
   # Combine all tumor suppressor alterations (del, mut, fus)
   # If the alteration is on a tumor suppresor, ignore alteration label
   # Clean up gene symbol, remove everything after the comma
@@ -1503,13 +1510,6 @@ action_main_tx_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     mutate(alteration = ifelse(onco_type == "tumor_suppresor", "Del", alteration)) %>%
     mutate(alteration = gsub(",.*", "", alteration)) %>%
     mutate(gene_symbol_label = gsub(" Mut", "", paste0(gene_symbol, " ", alteration)))
-  
-  # Optional include oncogenic alterations in plot
-  if (include_oncogenic == T){
-    gene_final_df <- gene_final_df %>%
-      mutate(highest_level = ifelse((is.na(highest_level) == T | highest_level == "") &
-                                      grepl("Oncogenic", oncogenic) == T, "ONCOGENIC", highest_level))
-  } 
   
   # Optional select only the highest level
   if (only_highest_level == T){
@@ -3347,6 +3347,13 @@ action_main_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
   } else if (status == "germline") {
     gene_final_df <- mut_df
   }
+  
+  # Optional include oncogenic alterations in plot
+  if (include_oncogenic == T){
+    gene_final_df <- gene_final_df %>%
+      mutate(highest_level = ifelse((is.na(highest_level) == T | highest_level == "") &
+                                      grepl("Oncogenic", oncogenic) == T, "ONCOGENIC", highest_level))
+  } 
 
   # Combine all tumor suppressor alterations (del, mut, fus)
   # If the alteration is on a tumor suppresor, ignore alteration label
@@ -3363,13 +3370,6 @@ action_main_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     mutate(alteration = ifelse(onco_type == "tumor_suppresor", "Del", alteration)) %>%
     mutate(alteration = gsub(",.*", "", alteration)) %>%
     mutate(gene_symbol_label = gsub(" Mut", "", paste0(gene_symbol, " ", alteration)))
-  
-  # Optional include oncogenic alterations in plot
-  if (include_oncogenic == T){
-    gene_final_df <- gene_final_df %>%
-      mutate(highest_level = ifelse((is.na(highest_level) == T | highest_level == "") &
-                                      grepl("Oncogenic", oncogenic) == T, "ONCOGENIC", highest_level))
-  } 
   
   # Optional select only the highest level
   if (only_highest_level == T){

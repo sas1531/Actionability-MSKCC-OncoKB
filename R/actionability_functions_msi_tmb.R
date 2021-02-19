@@ -745,6 +745,11 @@ action_main_fun <- function(cna_df, mut_df, fus_df, clin_df, data_freeze,
     inner_join(dplyr::select(data_freeze, SAMPLE_ID, cancer_type), by = "SAMPLE_ID") %>%
     dplyr::select(SAMPLE_ID, Hugo_Symbol, Variant_Type, LEVEL_1, LEVEL_2, LEVEL_3A,
                   LEVEL_3B, LEVEL_4, Highest_level, oncogenic, cancer_type, HGVSp_Short, Mutation_Status)
+  # Add in oncogenic here if included
+  if (include_oncogenic == T) {
+    mut_df <- mut_df %>%
+      mutate(ONCOGENIC = "ONCOGENIC")
+  } 
   mut_df <- melt(mut_df, id.vars = c("SAMPLE_ID", "Hugo_Symbol", "Variant_Type", "Highest_level",
                                      "oncogenic", "cancer_type", "HGVSp_Short", "Mutation_Status"))
   

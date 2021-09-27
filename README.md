@@ -1,6 +1,5 @@
 # Actionability
 Shaleigh Smith  
-smiths5@mskcc.org  
 
 ## [OncoKB](https://www.oncokb.org): Precision Oncology Knowledge Base  
 Annoate IMPACT files using [oncokb-annotator](https://github.com/oncokb/oncokb-annotator)  
